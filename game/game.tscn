@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://dquc4kkxu28x8"]
+
+[ext_resource type="PackedScene" uid="uid://cx54nayput11f" path="res://game/board.tscn" id="1_l1rk1"]
+[ext_resource type="Script" uid="uid://drppm6fscu451" path="res://game/game.gd" id="1_vasa2"]
+[ext_resource type="Texture2D" uid="uid://b7mwswi5owl2v" path="res://sprites/MinesBackground.png" id="2_h7iqs"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vasa2"]
+texture = ExtResource("2_h7iqs")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vasa2"]
+bg_color = Color(0.1316, 0.124000005, 0.2, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_vasa2")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_vasa2")
+
+[node name="LayoutContainer" type="BoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="GameContainer" type="SubViewportContainer" parent="PanelContainer/LayoutContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="PanelContainer/LayoutContainer/GameContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1148, 648)
+render_target_update_mode = 4
+
+[node name="Board" parent="PanelContainer/LayoutContainer/GameContainer/SubViewport" instance=ExtResource("1_l1rk1")]
+
+[node name="HUD" type="PanelContainer" parent="PanelContainer/LayoutContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vasa2")
+
+[node name="OptionContainer" type="FlowContainer" parent="PanelContainer/LayoutContainer/HUD"]
+layout_mode = 2
